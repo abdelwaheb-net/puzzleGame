@@ -89,6 +89,40 @@ namespace Puzzle
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MoveButton((Button)sender);
+        }
+
+        private void MoveButton(Button btn)
+        {
+            if ((((btn.Location.X == EmptyPoint.X - 90 || btn.Location.X == EmptyPoint.X + 90)
+                && btn.Location.Y == EmptyPoint.Y)) || ((btn.Location.Y == EmptyPoint.Y - 90 || btn.Location.Y == EmptyPoint.Y + 90)
+                && btn.Location.X == EmptyPoint.X))
+            {
+                Point swap = btn.Location;
+                btn.Location = EmptyPoint;
+                EmptyPoint = swap;
+            }
+
+            if (EmptyPoint.X == 180 && EmptyPoint.Y == 180)
+                checkvalid();
+        }
+
+        private void checkvalid()
+        {
+            int count = 0, index;
+            foreach (Button btn  in panel1.Controls)
+            {
+                index = (btn.Location.Y / 90) * 3 + btn.Location.X / 90;
+                if (images[index] == btn.Image)
+                    count++;
+
+            }
+            if (count == 8)
+                MessageBox.Show("Well done you win !");
+        }
+
     
 
     }
